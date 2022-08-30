@@ -20,8 +20,8 @@ jobs:
         uses: actions/checkout@v2
       - 
         env:
-          DOCKER_USER_NAME: ${{ sectrets.DOCKER_USER_NAME }}
-          DOCKER_PASSWORD: ${{ sectrets.DOCKER_PASSWORD }}
+          DOCKER_USER_NAME: ${{ secrets.DOCKER_USER_NAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         name: "docker_login"
         run: |
             docker login -u $DOCKER_USER_NAME -p $DOCKER_PASSWORD
@@ -55,8 +55,8 @@ jobs:
         uses: actions/checkout@v2
       - 
         env:
-          DOCKER_USER_NAME: ${{ sectrets.DOCKER_USER_NAME }}
-          DOCKER_PASSWORD: ${{ sectrets.DOCKER_PASSWORD }}
+          DOCKER_USER_NAME: ${{ secrets.DOCKER_USER_NAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           DOCKER_REPO: raj5444/webapp
         name: "push"
         run: |
