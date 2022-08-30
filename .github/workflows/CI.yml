@@ -41,6 +41,7 @@ jobs:
         name: "build"
         run: |
             docker build -t nexon-marketing:$(cat version.sh | cut -c 9-) .
+    needs: [Docker-Login]
 
   Push:
     runs-on: self-hosted
@@ -61,3 +62,4 @@ jobs:
         run: |
             docker tag nexon-marketing:$(cat version.sh | cut -c 9-) raj5444/webapp:$(cat version.sh | cut -c 9-)
             docker push raj5444/webapp:$(cat version.sh | cut -c 9-)
+    needs: [Push]
