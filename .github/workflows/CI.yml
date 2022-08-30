@@ -57,7 +57,6 @@ jobs:
         env:
           DOCKER_USER_NAME: ${{ secrets.DOCKER_USER_NAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          DOCKER_REPO: raj5444/webapp
         name: "push"
         run: |
-            docker push ${{ env.DOCKER_REPO }}:$(cat version.sh | cut -c 9-)
+            docker push raj5444/webapp:$(cat version.sh | cut -c 9-)
