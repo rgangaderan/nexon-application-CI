@@ -1,0 +1,63 @@
+on:
+  pull_request:
+    # Sequence of patterns matched against refs/heads
+    branches:
+      - main    
+      - dev
+      - 'mona/octocat'
+      - 'releases/**'
+
+jobs:
+  Docker-Login:
+    runs-on: self-hosted
+    name: Login
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        env:
+          DOCKER_USER_NAME: ${{ sectrets.DOCKER_USER_NAME }}
+          DOCKER_PASSWORD: ${{ sectrets.DOCKER_PASSWORD }}
+        name: "docker_login"
+        run: |
+            docker login -u $DOCKER_USER_NAME -p $DOCKER_PASSWORD
+
+  Build:
+    runs-on: self-hosted
+    name: Nexon Apllication Build
+
+    defaults:
+      run:
+        shell: bash
+    steps: 
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        name: "build"
+        run: |
+            docker build -t nexon-marketing:$(sed -i s/version=//g version.sh | cat version.sh) .
+
+  Push:
+    runs-on: self-hosted
+    name: Nexon Apllication Push
+
+    defaults:
+      run:
+        shell: bash
+    steps: 
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        env:
+          DOCKER_USER_NAME: ${{ sectrets.DOCKER_USER_NAME }}
+          DOCKER_PASSWORD: ${{ sectrets.DOCKER_PASSWORD }}
+          DOCKER_REPO: raj5444/webapp
+        name: "push"
+        run: |
+            docker push ${{ env.DOCKER_REPO }}:$(sed -i s/version=//g version.sh | cat version.sh)
