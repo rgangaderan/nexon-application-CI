@@ -59,4 +59,5 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         name: "push"
         run: |
+            docker tag nexon-marketing:$(cat version.sh | cut -c 9-) raj5444/webapp:$(cat version.sh | cut -c 9-)
             docker push raj5444/webapp:$(cat version.sh | cut -c 9-)
