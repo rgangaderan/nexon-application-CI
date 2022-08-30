@@ -1,3 +1,3 @@
 #!/bin/bash
-
-sed -i s/{{version}}/$version/g index.html
+export version=1.0
+sed -i s/{{version}}/$version/g /usr/local/apache2/htdocs/
