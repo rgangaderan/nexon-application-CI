@@ -1,0 +1,60 @@
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:
+      - main
+
+jobs:
+  Docker-Login:
+    runs-on: self-hosted
+    name: Login
+    defaults:
+      run:
+        shell: bash
+    steps: 
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        env:
+          DOCKER_USER_NAME: ${{ secrets.DOCKER_USER_NAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        name: "docker_login"
+        run: |
+            docker login -u $DOCKER_USER_NAME -p $DOCKER_PASSWORD
+
+  Build:
+    runs-on: self-hosted
+    name: Nexon Apllication Build
+
+    defaults:
+      run:
+        shell: bash
+    steps: 
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        name: "build"
+        run: |
+            docker build -t nexon-marketing:$(cat version.sh | cut -c 9-) .
+
+  Push:
+    runs-on: self-hosted
+    name: Nexon Apllication Push
+
+    defaults:
+      run:
+        shell: bash
+    steps: 
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        env:
+          DOCKER_USER_NAME: ${{ secrets.DOCKER_USER_NAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        name: "push"
+        run: |
+            docker tag nexon-marketing:$(cat version.sh | cut -c 9-) raj5444/webapp:$(cat version.sh | cut -c 9-)
+            docker push raj5444/webapp:$(cat version.sh | cut -c 9-)
