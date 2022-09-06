@@ -98,10 +98,20 @@ jobs:
         env:
           SERVICE: nexon-development-xqzpf
           TASKDEFINITION: nexon-development-task-definition-xqzpf
-          COUNT: 0
+          COUNT: 2
           CLUSTER: nexon-development-ecs-cluster-xqzpf
         name: "register-task-definition"
         run: |
+            aws ecs update-service \
+            --service $SERVICE\
+            --task-definition $TASKDEFINITION \
+            --desired-count 0 \
+            --profile $ECR_PROFILE \
+            --region $ECR_REGION \
+            --cluster $CLUSTER
+
+            sleep 100
+
             aws ecs update-service \
             --service $SERVICE\
             --task-definition $TASKDEFINITION \
