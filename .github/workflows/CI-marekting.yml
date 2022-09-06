@@ -55,7 +55,9 @@ jobs:
         uses: actions/checkout@v2
       - 
         name: "push"
+        env:
+          VERSION: $(cat nexon-marketing-CI/version.sh | cut -c 9-)
         run: |
-            docker tag nexon-marketing:$(cat version.sh | cut -c 9-) 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$(cat version.sh | cut -c 9-)
-            docker push 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$(cat version.sh | cut -c 9-)
+            docker tag nexon-marketing:$VERSION 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$VERSION
+            docker push 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$VERSION
     needs: [Build]
