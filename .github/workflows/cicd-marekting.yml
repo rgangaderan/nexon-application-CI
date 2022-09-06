@@ -5,7 +5,9 @@ on:
       - main    
       - dev
       - 'releases/**'
-
+env:
+  ECR_REGION: us-east-1
+  ECR_PROFILE: nexon-dev
 jobs:
   Docker-Login:
     runs-on: self-hosted
@@ -18,9 +20,6 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       - 
-        env:
-          ECR_REGION: us-east-1
-          ECR_PROFILE: nexon-dev
         name: "docker_login"
         run: |
             aws ecr get-login-password --region $ECR_REGION --profile $ECR_PROFILE | docker login --username AWS --password-stdin 126609036647.dkr.ecr.us-east-1.amazonaws.com
@@ -77,11 +76,38 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       - 
-        env:
-          ECR_REGION: us-east-1
-          ECR_PROFILE: nexon-dev
         name: "register-task-definition"
         run: |
             cd nexon-marketing-CD && sed -i s/"{{version}}"/$(cat ../version.sh | cut -c 9-)/g task-definition.json
             aws ecs register-task-definition --profile $ECR_PROFILE --region $ECR_REGION --cli-input-json file://task-definition.json
     needs: [Push]
+
+  Update-Service:
+    runs-on: self-hosted
+    name: Update Service
+    environment:
+      name: Dev
+    defaults:
+      run:
+        shell: bash
+    steps: 
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        env:
+          SERVICE: nexon-development-xqzpf
+          TASKDEFINITION: nexon-development-task-definition-xqzpf
+          COUNT: 0
+          CLUSTER: nexon-development-ecs-cluster-xqzpf
+        name: "register-task-definition"
+        run: |
+            aws ecs update-service \
+            --service $SERVICE\
+            --task-definition $TASKDEFINITION \
+            --desired-count $COUNT \
+            --profile $ECR_PROFILE \
+            --region $ECR_REGION \
+            --cluster $CLUSTER
+
+    needs: [Task-Definition]
