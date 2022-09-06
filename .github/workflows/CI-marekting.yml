@@ -5,8 +5,6 @@ on:
       - main    
       - dev
       - 'releases/**'
-env:
-  VERSION: $(cat ../../nexon-marketing-CI/version.sh | cut -c 9-)
 
 jobs:
   Docker-Login:
@@ -41,7 +39,7 @@ jobs:
       - 
         name: "build"
         run: |
-            docker build -t nexon-marketing:$VERSION
+            docker build -t nexon-marketing:$(cat ../../nexon-marketing-CI/version.sh | cut -c 9-)
     needs: [Docker-Login]
 
   Push:
@@ -58,6 +56,6 @@ jobs:
       - 
         name: "push"
         run: |
-            docker tag nexon-marketing:$VERSION 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$VERSION
-            docker push 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$VERSION
+            docker tag nexon-marketing:$(cat ../../nexon-marketing-CI/version.sh | cut -c 9-) 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$(cat ../../nexon-marketing-CI/version.sh | cut -c 9-)
+            docker push 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$(cat ../../nexon-marketing-CI/version.sh | cut -c 9-)
     needs: [Build]
