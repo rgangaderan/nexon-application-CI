@@ -38,7 +38,7 @@ jobs:
       - 
         name: "build"
         run: |
-            docker build -t nexon-marketing:$(cat version.sh | cut -c 9-) ./nexon-marketing-CI
+            docker build --no-cache -t nexon-marketing:$(cat version.sh | cut -c 9-) ./nexon-marketing-CI
     needs: [Docker-Login]
 
   Push:
