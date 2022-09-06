@@ -23,7 +23,7 @@ jobs:
           ECR_PROFILE: nexon-dev
         name: "docker_login"
         run: |
-            $(cat ../../nexon-marketing-CI/version.sh | cut -c 9-)
+            $(cat ../../../nexon-marketing-CI/version.sh | cut -c 9-)
             aws ecr get-login-password --region $ECR_REGION --profile $ECR_PROFILE | docker login --username AWS --password-stdin 126609036647.dkr.ecr.us-east-1.amazonaws.com
 
   Build:
