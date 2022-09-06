@@ -34,7 +34,7 @@ jobs:
         run: |
             aws ecr get-login-password --region $ECR_REGION --profile $ECR_PROFILE | docker login --username AWS --password-stdin 126609036647.dkr.ecr.us-east-1.amazonaws.com
 
-#Build the docker images, before building it will remove some old images 
+#Build the docker images.
   Build:
     runs-on: self-hosted
     name: Nexon Marketing Application Docker Build
@@ -49,8 +49,7 @@ jobs:
       - 
         name: "build"
         run: |
-            docker rmi -f $(docker images -q)
-            docker build --no-cache -t nexon-marketing:$(cat version.sh | cut -c 9-) ./nexon-marketing-CI
+            docker build -t nexon-marketing:$(cat version.sh | cut -c 9-) ./nexon-marketing-CI
     needs: [Docker-Login]
 
 #Publish the docker images to ECR
