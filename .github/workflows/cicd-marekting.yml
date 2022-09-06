@@ -9,7 +9,7 @@ on:
 jobs:
   Docker-Login:
     runs-on: self-hosted
-    name: Login
+    name: DockerLogin
     defaults:
       run:
         shell: bash
@@ -27,7 +27,7 @@ jobs:
 
   Build:
     runs-on: self-hosted
-    name: Nexon Marketing Application Build
+    name: Nexon Marketing Application Docker Build
 
     defaults:
       run:
@@ -44,7 +44,7 @@ jobs:
 
   Push:
     runs-on: self-hosted
-    name: Nexon Apllication Push
+    name: Nexon Apllication Docker Push
 
     defaults:
       run:
@@ -66,7 +66,7 @@ jobs:
 
   Task-Definition:
     runs-on: self-hosted
-    name: register-task-definition
+    name: Register TaskDefinition
     environment:
       name: Dev
     defaults:
