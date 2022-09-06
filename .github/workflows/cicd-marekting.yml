@@ -98,7 +98,7 @@ jobs:
           TASKDEFINITION: nexon-development-task-definition-xqzpf
           COUNT: 2
           CLUSTER: nexon-development-ecs-cluster-xqzpf
-        name: "register-task-definition"
+        name: "Update-Service"
         run: |
             aws ecs update-service \
             --service $SERVICE \
