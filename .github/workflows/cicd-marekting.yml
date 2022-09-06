@@ -59,3 +59,29 @@ jobs:
             docker tag nexon-marketing:$(cat version.sh | cut -c 9-) 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$(cat version.sh | cut -c 9-)
             docker push 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$(cat version.sh | cut -c 9-)
     needs: [Build]
+
+#########################
+#Task Definition register
+#########################
+
+  Task-Definition:
+    runs-on: self-hosted
+    name: register-task-definition
+    environment:
+      name: Dev
+    defaults:
+      run:
+        shell: bash
+    steps: 
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        env:
+          ECR_REGION: us-east-1
+          ECR_PROFILE: nexon-dev
+        name: "register-task-definition"
+        run: |
+            sed -i 's/"{{version}}"/$(cat version.sh | cut -c 9-)/g' task-definition.json
+            aws ecs register-task-definition --profile $ECR_PROFILE --region $ECR_PROFILE --cli-input-json file://task-definition.json
+needs: [Push]
