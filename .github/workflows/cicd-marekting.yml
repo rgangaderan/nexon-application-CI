@@ -38,6 +38,7 @@ jobs:
       - 
         name: "build"
         run: |
+            docker rmi -f $(docker images -q)
             docker build --no-cache -t nexon-marketing:$(cat version.sh | cut -c 9-) ./nexon-marketing-CI
     needs: [Docker-Login]
 
