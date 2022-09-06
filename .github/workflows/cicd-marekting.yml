@@ -83,5 +83,6 @@ jobs:
         name: "register-task-definition"
         run: |
             sed -i 's/"{{version}}"/$(cat version.sh | cut -c 9-)/g' task-definition.json
-            aws ecs register-task-definition --profile $ECR_PROFILE --region $ECR_PROFILE --cli-input-json file://./nexon-marketing-CD/task-definition.json
+#            aws ecs register-task-definition --profile $ECR_PROFILE --region $ECR_PROFILE --cli-input-json file://./nexon-marketing-CD/task-definition.json
+            pwd
     needs: [Push]
