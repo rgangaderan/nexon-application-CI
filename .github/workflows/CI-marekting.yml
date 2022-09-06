@@ -6,7 +6,7 @@ on:
       - dev
       - 'releases/**'
 env:
-  VERSION: $(../../nexon-marketing-CI/version.sh | cut -c 9-)
+  VERSION: cat ../../nexon-marketing-CI/version.sh | cut -c 9-
 
 jobs:
   Docker-Login:
