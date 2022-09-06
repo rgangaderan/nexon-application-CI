@@ -85,8 +85,6 @@ jobs:
   Update-Service:
     runs-on: self-hosted
     name: Update Service
-    environment:
-      name: Dev
     defaults:
       run:
         shell: bash
