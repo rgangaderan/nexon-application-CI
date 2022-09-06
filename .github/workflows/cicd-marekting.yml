@@ -24,7 +24,6 @@ jobs:
         name: "docker_login"
         run: |
             aws ecr get-login-password --region $ECR_REGION --profile $ECR_PROFILE | docker login --username AWS --password-stdin 126609036647.dkr.ecr.us-east-1.amazonaws.com
-            pwd
 
   Build:
     runs-on: self-hosted
@@ -84,5 +83,5 @@ jobs:
         name: "register-task-definition"
         run: |
             cd nexon-marketing-CD && sed -i 's/"{{version}}"/$(cat version.sh | cut -c 9-)/g' task-definition.json
-            aws ecs register-task-definition --profile $ECR_PROFILE --region $ECR_PROFILE --cli-input-json file://./nexon-marketing-CD/task-definition.json
+            aws ecs register-task-definition --profile $ECR_PROFILE --region $ECR_PROFILE --cli-input-json file://./task-definition.json
     needs: [Push]
