@@ -38,8 +38,10 @@ jobs:
         uses: actions/checkout@v2
       - 
         name: "build"
+        env:
+          VERSION: $(cat nexon-marketing-CI/version.sh | cut -c 9-)
         run: |
-            docker build -t nexon-marketing:$(cat version.sh | cut -c 9-) ./nexon-marketing-CI
+            docker build -t nexon-marketing:$VERSION
     needs: [Docker-Login]
 
   Push:
