@@ -54,7 +54,6 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       - 
-        env:
         name: "push"
         run: |
             docker tag nexon-marketing:$(cat version.sh | cut -c 9-) 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$(cat version.sh | cut -c 9-)
