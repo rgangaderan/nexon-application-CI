@@ -103,7 +103,7 @@ jobs:
         name: "register-task-definition"
         run: |
             aws ecs update-service \
-            --service $SERVICE\
+            --service $SERVICE \
             --task-definition $TASKDEFINITION \
             --desired-count 0 \
             --profile $ECR_PROFILE \
@@ -113,7 +113,7 @@ jobs:
             sleep 100
 
             aws ecs update-service \
-            --service $SERVICE\
+            --service $SERVICE \
             --task-definition $TASKDEFINITION \
             --desired-count $COUNT \
             --profile $ECR_PROFILE \
