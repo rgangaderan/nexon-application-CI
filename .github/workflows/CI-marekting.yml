@@ -39,7 +39,7 @@ jobs:
       - 
         name: "build"
         env:
-          VERSION: $(cat nexon-marketing-CI/version.sh | cut -c 9-)
+          VERSION: $(cat ./nexon-marketing-CI/version.sh | cut -c 9-)
         run: |
             docker build -t nexon-marketing:$VERSION
     needs: [Docker-Login]
@@ -58,7 +58,7 @@ jobs:
       - 
         name: "push"
         env:
-          VERSION: $(cat nexon-marketing-CI/version.sh | cut -c 9-)
+          VERSION: $(cat ./nexon-marketing-CI/version.sh | cut -c 9-)
         run: |
             docker tag nexon-marketing:$VERSION 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$VERSION
             docker push 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$VERSION
