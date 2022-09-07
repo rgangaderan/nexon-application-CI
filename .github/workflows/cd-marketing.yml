@@ -1,6 +1,6 @@
 on:
   workflow_run:
-    workflows: [Nexon Apllication Docker Push]
+    workflows: [Push]
     types:
       - completed
 
