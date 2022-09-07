@@ -1,7 +1,8 @@
 on:
   workflow_run:
     workflows: ["Nexon Marketing Marketing Docker Push"]
-    types: [completed]
+    types: 
+      - completed
     branches:
       - 'releases/**'
       - 'feat/**'
