@@ -55,7 +55,7 @@ jobs:
 #Publish the docker images to ECR
   Push:
     runs-on: self-hosted
-    name: Nexon Apllication Docker Push
+    name: Nexon Marketing Marketing Docker Push
 
     defaults:
       run:
@@ -70,4 +70,3 @@ jobs:
             docker tag nexon-marketing:$(cat version.sh | cut -c 9-) 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$(cat version.sh | cut -c 9-)
             docker push 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$(cat version.sh | cut -c 9-)
     needs: [Build]
-
