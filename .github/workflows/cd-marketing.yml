@@ -32,7 +32,7 @@ jobs:
       - 
         name: "register-task-definition"
         run: |
-            cd nexon-marketing-CD && sed -i s/"{{version}}"/$(cat ../version.sh | cut -c 9-)/g nexon-marketing-CD/task-definition.json
+            cd nexon-marketing-CD && sed -i s/"{{version}}"/$(cat ../version.sh | cut -c 9-)/g ./task-definition.json
             aws ecs register-task-definition --profile $ECR_PROFILE --region $ECR_REGION --cli-input-json file://task-definition.json
 
 ##################################################################################################################################################################
