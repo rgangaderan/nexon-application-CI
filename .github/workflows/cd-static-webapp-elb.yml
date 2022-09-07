@@ -11,8 +11,8 @@ env:
   REGION: us-east-1
   PROFILE: nexon-dev
   AUTOSCALINGNAME: nexon-development-wxiqw
-  MIN: 1
-  MAX: 1
+  MIN: 0
+  MAX: 0
 #############################################################################################
 
 jobs:
@@ -31,7 +31,7 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       - 
-        name: "register-task-definition"
+        name: "Static-Web-App-Deployment"
         run: |
             aws autoscaling update-auto-scaling-group \
               --auto-scaling-group-name $AUTOSCALINGNAME \
