@@ -1,9 +1,8 @@
 on:
-  workflow_run:
-    workflows: 
-      - Nexon Marketing Application Docker Push
-    types: 
-      - completed
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:  
+      - dev
 
 #############################################################################################
 # Passing global environment variable, this can be use throughout the file 
@@ -33,12 +32,11 @@ jobs:
       - 
         name: "register-task-definition"
         run: |
-            cd nexon-marketing-CD && sed -i s/"{{version}}"/$(cat ../version.sh | cut -c 9-)/g nexon-marketing-CD/task-definition.json
+            cd nexon-marketing-CD && sed -i s/"{{version}}"/$(cat ../version.sh | cut -c 9-)/g ./task-definition.json
             aws ecs register-task-definition --profile $ECR_PROFILE --region $ECR_REGION --cli-input-json file://task-definition.json
-    needs: [Push]
 
 ##################################################################################################################################################################
-#    Update ECS Service
+#    Update AWS ECS Service
 #    Service update will be the last step, 1st it will update the service with 0 desired count to kill old running tasks and then update it again with new count.
 ##################################################################################################################################################################
 
@@ -67,8 +65,6 @@ jobs:
             --profile $ECR_PROFILE \
             --region $ECR_REGION \
             --cluster $CLUSTER
-
-            sleep 100
 
             aws ecs update-service \
             --service $SERVICE \
