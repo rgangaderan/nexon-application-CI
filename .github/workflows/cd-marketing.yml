@@ -1,12 +1,9 @@
 on:
   workflow_run:
-    workflows: ["Nexon Marketing Marketing Docker Push"]
+    workflows: 
+      - Nexon Marketing Marketing Docker Push
     types: 
       - completed
-    branches:
-      - 'releases/**'
-      - 'feat/**'
-      - dev
 
 #############################################################################################
 # Passing global environment variable, this can be use throughout the file 
