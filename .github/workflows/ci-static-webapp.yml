@@ -1,3 +1,6 @@
+###############################################################################################################
+#         Based on Pull request created for dev, main and release branches will trigger the pipeline GHA
+###############################################################################################################
 on:
   pull_request:
     # Sequence of patterns matched against refs/heads
@@ -6,6 +9,10 @@ on:
       - dev
       - 'mona/octocat'
       - 'releases/**'
+# This Workflow has an order of running tasks, this pipeline only handle the CI part and CD part will be in separate repo
+
+
+# 1. Docker login using github public repos to pull image and push image to Nexon Static webpp
 
 jobs:
   Docker-Login:
@@ -26,6 +33,8 @@ jobs:
         run: |
             docker login -u $DOCKER_USER_NAME -p $DOCKER_PASSWORD
 
+# 2. Build the images
+
   Build:
     runs-on: self-hosted
     name: Nexon Apllication Build
@@ -40,9 +49,10 @@ jobs:
       - 
         name: "build"
         run: |
-            docker build -t nexon-marketing:$(cat version.sh | cut -c 9-) .
+            docker build -t nexon-marketing-static:$(cat version.sh | cut -c 9-) ./static-web-app-nexon-CI
     needs: [Docker-Login]
 
+# push the image
   Push:
     runs-on: self-hosted
     name: Nexon Apllication Push
@@ -60,6 +70,6 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         name: "push"
         run: |
-            docker tag nexon-marketing:$(cat version.sh | cut -c 9-) raj5444/webapp:$(cat version.sh | cut -c 9-)
+            docker tag nexon-marketing-static:$(cat version.sh | cut -c 9-) raj5444/webapp:$(cat version.sh | cut -c 9-)
             docker push raj5444/webapp:$(cat version.sh | cut -c 9-)
     needs: [Build]
