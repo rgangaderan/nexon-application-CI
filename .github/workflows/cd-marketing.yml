@@ -3,7 +3,15 @@ on:
     workflows: [Nexon Apllication Docker Push]
     types:
       - completed
+      
+#############################################################################################
+# Passing global environment variable, this can be use throughout the file 
+env:
+  ECR_REGION: us-east-1
+  ECR_PROFILE: nexon-dev
+#############################################################################################
 
+jobs:
 ###############################################################################################################################################################################
 #     Task Definition register
 #     Task Definition will register with new image version using a bash script to cat the version number from version file in the root and append it as a variable in docker tag
