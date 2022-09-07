@@ -9,6 +9,10 @@ on:
 env:
   ECR_REGION: us-east-1
   ECR_PROFILE: nexon-dev
+  SERVICE: nexon-development-wrrhn
+  TASKDEFINITION: nexon-development-task-definition-wrrhn
+  COUNT: 2
+  CLUSTER: nexon-development-ecs-cluster-wrrhn
 #############################################################################################
 
 jobs:
@@ -51,11 +55,6 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       - 
-        env:
-          SERVICE: nexon-development-xqzpf
-          TASKDEFINITION: nexon-development-task-definition-xqzpf
-          COUNT: 2
-          CLUSTER: nexon-development-ecs-cluster-xqzpf
         name: "Update-Service"
         run: |
             aws ecs update-service \
