@@ -11,8 +11,8 @@ env:
   REGION: us-east-1
   PROFILE: nexon-dev
   AUTOSCALINGNAME: nexon-development-wxiqw
-  MIN: 2
-  MAX: 2
+  MIN: 1
+  MAX: 1
 #############################################################################################
 
 jobs:
@@ -39,6 +39,8 @@ jobs:
               --max-size 0 \
               --profile $PROFILE \
               --region $REGION
+            
+            sleep 100
 
             aws autoscaling update-auto-scaling-group \
               --auto-scaling-group-name $AUTOSCALINGNAME \
