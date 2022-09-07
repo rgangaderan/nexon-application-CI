@@ -66,8 +66,6 @@ jobs:
             --region $ECR_REGION \
             --cluster $CLUSTER
 
-            sleep 100
-
             aws ecs update-service \
             --service $SERVICE \
             --task-definition $TASKDEFINITION \
