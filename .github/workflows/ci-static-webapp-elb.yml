@@ -1,0 +1,38 @@
+###############################################################################################################
+#         Based on Pull request created for dev, main and release branches will trigger the pipeline GHA
+###############################################################################################################
+on:
+  pull_request:
+    # Sequence of patterns matched against refs/heads
+    branches:  
+      - dev
+      - 'mona/octocat'
+      - 'releases/**'
+
+#############################################################################################
+# Passing global environment variable, this can be use throughout the file 
+env:
+  REGION: us-east-1
+  PROFILE: nexon-dev
+  BUCKET: aritifacts-nexon-app
+#############################################################################################
+
+jobs:
+###############################################################################################################################################################################
+#     Upload the Atrifacts to S3
+###############################################################################################################################################################################
+
+  Atrifacts:
+    runs-on: self-hosted
+    name: Upload Atrifacts
+    defaults:
+      run:
+        shell: bash
+    steps: 
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        name: "Upload-Aritifacts"
+        run: |
+            aws s3 cp static-web-app-elb-CI/index.html s3://$BUCKET/ --profile $PROFILE region $REGION
