@@ -1,0 +1,72 @@
+#####################################################
+# Complete CICD process for Nexon Marketing app.
+# The workflow has some secret stored in GHA Settings.
+#####################################################
+on:
+  pull_request:
+    # Sequence of patterns matched against refs/heads
+    branches:
+      - main    
+      - dev
+      - 'releases/**'
+#############################################################################################
+# Passing global environment variable, this can be use throughout the file 
+env:
+  ECR_REGION: us-east-1
+  ECR_PROFILE: nexon-dev
+#############################################################################################
+
+jobs:
+
+#Login to the ECR
+  Docker-Login:
+    runs-on: self-hosted
+    name: DockerLogin
+    defaults:
+      run:
+        shell: bash
+    steps: 
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        name: "docker_login"
+        run: |
+            aws ecr get-login-password --region $ECR_REGION --profile $ECR_PROFILE | docker login --username AWS --password-stdin 126609036647.dkr.ecr.us-east-1.amazonaws.com
+
+#Build the docker images.
+  Build:
+    runs-on: self-hosted
+    name: Nexon Marketing Application Docker Build
+
+    defaults:
+      run:
+        shell: bash
+    steps: 
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        name: "build"
+        run: |
+            docker build -t nexon-marketing:$(cat version.sh | cut -c 9-) ./nexon-marketing-CI
+    needs: [Docker-Login]
+
+#Publish the docker images to ECR
+  Push:
+    runs-on: self-hosted
+    name: Nexon Marketing Application Docker Push
+
+    defaults:
+      run:
+        shell: bash
+    steps: 
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        name: "push"
+        run: |
+            docker tag nexon-marketing:$(cat version.sh | cut -c 9-) 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$(cat version.sh | cut -c 9-)
+            docker push 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$(cat version.sh | cut -c 9-)
+    needs: [Build]
