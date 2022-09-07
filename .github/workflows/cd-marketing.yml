@@ -1,8 +1,11 @@
 on:
   workflow_run:
-    workflows: [Push]
-    types:
-      - completed
+    workflows: ["Push"]
+    types: [requested]
+    branches:
+      - 'releases/**'
+      - 'feat/**'
+      - dev
 
 #############################################################################################
 # Passing global environment variable, this can be use throughout the file 
