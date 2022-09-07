@@ -1,9 +1,8 @@
 on:
-  workflow_run:
-    workflows: 
-      - Nexon Marketing Application Docker Push
-    types: 
-      - completed
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:  
+      - dev
 
 #############################################################################################
 # Passing global environment variable, this can be use throughout the file 
