@@ -1,7 +1,7 @@
 on:
   workflow_run:
     workflows: 
-      - Nexon Marketing Marketing Docker Push
+      - Nexon Marketing Application Docker Push
     types: 
       - completed
 
