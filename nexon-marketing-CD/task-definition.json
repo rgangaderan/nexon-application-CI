@@ -1,10 +1,10 @@
 {
-    "executionRoleArn": "arn:aws:iam::126609036647:role/ecs-execution-role-Me3G6",
-    "family": "nexon-development-task-definition-xqzpf",
+    "executionRoleArn": "arn:aws:iam::126609036647:role/ecs-execution-role-itf2K",
+    "family": "nexon-development-task-definition-wrrhn",
     "networkMode": "awsvpc",
     "containerDefinitions": [{
       "name": "nexon-development-container",
-      "image": "126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:{{version}}",
+      "image": "126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-gmskr:{{version}}",
       "portMappings": [{
         "containerPort": 80,
         "hostPort": 80,
