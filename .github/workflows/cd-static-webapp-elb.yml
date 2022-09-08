@@ -23,6 +23,8 @@ jobs:
   Static-WebApp-Deployment-ELB:
     runs-on: self-hosted
     name: Static WebApp Deployment ELB
+    environment:
+      name: Dev
     defaults:
       run:
         shell: bash
