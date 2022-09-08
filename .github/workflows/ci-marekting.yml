@@ -13,6 +13,7 @@ on:
 env:
   ECR_REGION: us-east-1
   ECR_PROFILE: nexon-dev
+  ECR_REPO: nexon-development-gmskr
 #############################################################################################
 
 jobs:
@@ -66,6 +67,6 @@ jobs:
       - 
         name: "push"
         run: |
-            docker tag nexon-marketing:$(cat version.sh | cut -c 9-) 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$(cat version.sh | cut -c 9-)
-            docker push 126609036647.dkr.ecr.us-east-1.amazonaws.com/nexon-development-zgqad:$(cat version.sh | cut -c 9-)
+            docker tag nexon-marketing:$(cat version.sh | cut -c 9-) 126609036647.dkr.ecr.us-east-1.amazonaws.com/$ECR_REPO:$(cat version.sh | cut -c 9-)
+            docker push 126609036647.dkr.ecr.us-east-1.amazonaws.com/$ECR_REPO:$(cat version.sh | cut -c 9-)
     needs: [Build]
