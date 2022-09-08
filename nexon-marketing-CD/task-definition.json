@@ -26,7 +26,7 @@
             "name": "MYSQL_DBUSER"
         },
         {
-            "valueFrom": "arn:aws:ssm:us-east-1:126609036647:parameter/production/database/host/address",
+            "valueFrom": "arn:aws:ssm:us-east-1:126609036647:parameter/development/database/host/address",
             "name": "MYSQL_DBHOST"
         }
 
