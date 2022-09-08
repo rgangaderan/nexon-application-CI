@@ -13,6 +13,7 @@ env:
   AUTOSCALINGNAME: nexon-development-wxiqw
   MIN: 0
   MAX: 0
+  TERRAFORM_TOKEN: ${{ secrets.TERRAFORM_TOKEN }}
 #############################################################################################
 
 jobs:
