@@ -27,7 +27,7 @@ jobs:
     environment:
       name: Dev
     env:
-      DOCKER_VERSION: $(cat version.sh | cut -c 9-)
+      DOCKER_VERSION: v6.4.1
     defaults:
       run:
         shell: bash
@@ -38,7 +38,6 @@ jobs:
       - 
         name: "Static-Web-App-Deployment"
         run: |
-            export docker_version=$(cat version.sh | cut -c 9-)
-            git clone git@github.com:rgangaderan/nexon-infra-and-application.git && cd nexon-infra-and-application/development/static-web-app-alb && terragrunt init && terragrunt apply -var max_size=0 -var min_size=0 -var=docker_version=$DOCKER_VERSION -auto-approve
+            git clone git@github.com:rgangaderan/nexon-infra-and-application.git && cd nexon-infra-and-application/development/static-web-app-alb && terragrunt init && terragrunt apply -var max_size=0 -var min_size=0 -var docker_version=$DOCKER_VERSION -auto-approve
             sleep 90
-            git clone git@github.com:rgangaderan/nexon-infra-and-application.git && cd nexon-infra-and-application/development/static-web-app-alb && terragrunt init && terragrunt apply -var max_size=$MAX -var min_size=$MIN -var=docker_version=$DOCKER_VERSION -auto-approve
+            git clone git@github.com:rgangaderan/nexon-infra-and-application.git && cd nexon-infra-and-application/development/static-web-app-alb && terragrunt init && terragrunt apply -var max_size=$MAX -var min_size=$MIN -var docker_version=$DOCKER_VERSION -auto-approve
