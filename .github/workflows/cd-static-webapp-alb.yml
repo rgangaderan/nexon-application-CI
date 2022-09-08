@@ -11,8 +11,8 @@ env:
   REGION: us-east-1
   PROFILE: nexon-dev
   AUTOSCALINGNAME: nexon-development-wxiqw
-  MIN: 1
-  MAX: 1
+  MIN: 2
+  MAX: 2
   TERRAFORM_TOKEN: ${{ secrets.TERRAFORM_TOKEN }}
 #############################################################################################
 
