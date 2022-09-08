@@ -11,8 +11,8 @@ env:
   REGION: us-east-1
   PROFILE: nexon-dev
   AUTOSCALINGNAME: nexon-development-wxiqw
-  MIN: 0
-  MAX: 0
+  MIN: 1
+  MAX: 1
   TERRAFORM_TOKEN: ${{ secrets.TERRAFORM_TOKEN }}
 #############################################################################################
 
@@ -36,7 +36,6 @@ jobs:
       - 
         name: "Static-Web-App-Deployment"
         run: |
-            git clone git@github.com:rgangaderan/nexon-infra-and-application.git && cd nexon-infra-and-application/development/static-web-app-alb && terragrunt init && terragrunt apply -var docker_version=$(cat ../../../version.sh | cut -c 9-) -var max_size=2 -var min_size=2 -auto-approve
-            max_size=0 \
-            min_size=0 \
-            -auto-approve 
+            git clone git@github.com:rgangaderan/nexon-infra-and-application.git && cd nexon-infra-and-application/development/static-web-app-alb && terragrunt init && terragrunt apply -var docker_version=$(cat ../../../version.sh | cut -c 9-) -var max_size=0 -var min_size=0 -auto-approve
+            sleep 90
+            cd nexon-infra-and-application/development/static-web-app-alb && terragrunt init && terragrunt apply -var docker_version=$(cat ../../../version.sh | cut -c 9-) -var max_size=$MAX -var min_size=$MIN -auto-approve
