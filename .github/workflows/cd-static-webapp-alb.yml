@@ -38,4 +38,4 @@ jobs:
         run: |
             git clone git@github.com:rgangaderan/nexon-infra-and-application.git && cd nexon-infra-and-application/development/static-web-app-alb && terragrunt init && terragrunt apply -var docker_version=$(cat ../../../version.sh | cut -c 9-) -var max_size=0 -var min_size=0 -auto-approve
             sleep 90
-            cd nexon-infra-and-application/development/static-web-app-alb && terragrunt init && terragrunt apply -var docker_version=$(cat ../../../version.sh | cut -c 9-) -var max_size=$MAX -var min_size=$MIN -auto-approve
+            git clone git@github.com:rgangaderan/nexon-infra-and-application.git && cd nexon-infra-and-application/development/static-web-app-alb && terragrunt init && terragrunt apply -var docker_version=$(cat ../../../version.sh | cut -c 9-) -var max_size=$MAX -var min_size=$MIN -auto-approve
