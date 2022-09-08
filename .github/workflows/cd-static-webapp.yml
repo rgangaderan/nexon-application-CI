@@ -10,7 +10,7 @@ on:
 env:
   REGION: us-east-1
   PROFILE: nexon-dev
-  AUTOSCALINGNAME: nexon-development-uoogb
+  AUTOSCALINGNAME: nexon-development-wxiqw
   MIN: 0
   MAX: 0
 #############################################################################################
@@ -20,9 +20,9 @@ jobs:
 # Update Autoscalling Group and launch instances once CI part is done, it will copy new artifacts and run the applications     
 ###############################################################################################################################################################################
 
-  Static-WebApp-Deployment:
+  Static-WebApp-Deployment-ALB:
     runs-on: self-hosted
-    name: Static WebApp Deployment
+    name: Static WebApp Deployment ALB
     defaults:
       run:
         shell: bash
@@ -33,19 +33,13 @@ jobs:
       - 
         name: "Static-Web-App-Deployment"
         run: |
-            aws autoscaling update-auto-scaling-group \
-              --auto-scaling-group-name $AUTOSCALINGNAME \
-              --min-size 0 \
-              --max-size 0 \
-              --profile $PROFILE \
-              --region $REGION
-            
-            sleep 100
+            git clone git@github.com:rgangaderan/nexon-infra-and-application.git
+            cd development/static-web-app-alb/ && terragrunt plan -var docker_version=$(cat version.sh | cut -c 9-) && terragrunt apply -auto-aprove -var docker_version=$(cat version.sh | cut -c 9-) \
+            max_size=0 \
+            min_size=0
+            sleep 60
+            cd development/static-web-app-alb/ && terragrunt plan -var docker_version=$(cat version.sh | cut -c 9-) && terragrunt apply -auto-aprove -var docker_version=$(cat version.sh | cut -c 9-) \
+            max_size=2 \
+            min_size=2
 
-            aws autoscaling update-auto-scaling-group \
-              --auto-scaling-group-name $AUTOSCALINGNAME \
-              --min-size $MIN \
-              --max-size $MAX \
-              --profile $PROFILE \
-              --region $REGION
-          
+            
