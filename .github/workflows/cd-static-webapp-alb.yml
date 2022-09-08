@@ -24,6 +24,8 @@ jobs:
   Static-WebApp-Deployment-ALB:
     runs-on: self-hosted
     name: Static WebApp Deployment ALB
+    environment:
+      name: Dev
     defaults:
       run:
         shell: bash
@@ -34,7 +36,7 @@ jobs:
       - 
         name: "Static-Web-App-Deployment"
         run: |
-            git clone git@github.com:rgangaderan/nexon-infra-and-application.git && cd nexon-infra-and-application/development/static-web-app-alb && terragrunt init && terragrunt apply -var docker_version=$(cat ../../../version.sh | cut -c 9-) \   
+            git clone git@github.com:rgangaderan/nexon-infra-and-application.git && cd nexon-infra-and-application/development/static-web-app-alb && terragrunt init && terragrunt apply -var docker_version=$(cat ../../../version.sh | cut -c 9-) -var max_size=2 -var min_size=2 -auto-approve
             max_size=0 \
             min_size=0 \
             -auto-approve 
