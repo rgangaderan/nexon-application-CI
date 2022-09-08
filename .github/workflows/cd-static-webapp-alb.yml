@@ -33,6 +33,6 @@ jobs:
       - 
         name: "Static-Web-App-Deployment"
         run: |
-            git clone git@github.com:rgangaderan/nexon-infra-and-application.git
+            cd static-web-app-alb-CD && git clone git@github.com:rgangaderan/nexon-infra-and-application.git
 
             
