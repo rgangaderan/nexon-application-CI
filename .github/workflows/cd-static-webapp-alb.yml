@@ -34,7 +34,7 @@ jobs:
       - 
         name: "Static-Web-App-Deployment"
         run: |
-            git clone git@github.com:rgangaderan/nexon-infra-and-application.git && cd nexon-infra-and-application && terragrunt plan -var docker_version=$(cat version.sh | cut -c 9-) && terragrunt apply -auto-aprove -var docker_version=$(cat version.sh | cut -c 9-) \
+            git clone git@github.com:rgangaderan/nexon-infra-and-application.git && cd nexon-infra-and-application/development/static-web-app-alb && terragrunt plan -var docker_version=$(cat version.sh | cut -c 9-) && terragrunt apply -auto-aprove -var docker_version=$(cat version.sh | cut -c 9-) \
             max_size=0 \
             min_size=0
             sleep 60
