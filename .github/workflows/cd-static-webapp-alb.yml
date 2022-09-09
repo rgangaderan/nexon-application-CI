@@ -36,9 +36,7 @@ jobs:
       - 
         name: "Static-Web-App-Deployment"
         run: |
-            export docker_version=$(cat version.sh | cut -c 9-)
-            echo $docker_version
-            git clone git@github.com:rgangaderan/nexon-infra-and-application.git && cd nexon-infra-and-application/development/static-web-app-alb && sed '/^  docker_version /s/=.*$/= $docker_version/' terragrunt.hcl
+            git clone git@github.com:rgangaderan/nexon-infra-and-application.git && cd nexon-infra-and-application/development/static-web-app-alb && sed -i '/^  docker_version /s/=.*$/= "{{}}"/' terragrunt.hcl && sed -i s/{{}}/$(cat ../../../version.sh | cut -c 9-)/g terragrunt.hcl
             terragrunt apply -var max_size=0 -var min_size=0 -auto-approve
             sleep 90
             terragrunt apply -var max_size=$MAX -var min_size=$MIN -auto-approve
