@@ -7,12 +7,16 @@ This repository contained complete CICD scripts to deploy Nexon-Marketing Applic
 
 You can find the all information in the same repository under Settings --- Actions ---- Runner
 ---- New self-hosted runner, it will give you above command to be execute from your VM. I have installed this on my EC2, where I can run all my CICD related builds and deployments.
+<img width="452" alt="image" src="https://user-images.githubusercontent.com/41107404/189351954-9313106c-a56e-4a5f-82f0-17839e938099.png">
+
 
 https://www.edwardthomson.com/blog/github_actions_26_self_hosted_runners.html
 
 2. Create Secrets
     Unser Settings ---- Security ----- Secrets ----- Action ---- New repository secret
 https://docs.github.com/en/actions/security-guides/encrypted-secrets
+<img width="452" alt="image" src="https://user-images.githubusercontent.com/41107404/189351977-20afb1b0-8ef1-4427-b4db-20a97d94b738.png">
+
  
 
 ## Deployment Process
