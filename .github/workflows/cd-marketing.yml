@@ -11,7 +11,7 @@ env:
   ECR_PROFILE: nexon-dev
   SERVICE: nexon-development-wrrhn
   TASKDEFINITION: nexon-development-task-definition-wrrhn
-  COUNT: 2
+  COUNT: 0
   CLUSTER: nexon-development-ecs-cluster-wrrhn
 #############################################################################################
 
