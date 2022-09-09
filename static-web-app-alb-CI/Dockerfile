@@ -3,6 +3,6 @@ FROM httpd
 WORKDIR script
 RUN apt update && apt install make -y
 COPY . .
-COPY ../version.sh .
+COPY /Users/rajee/Desktop/nexon-new/nexon-application-CICD/version.sh .
 COPY index.html /usr/local/apache2/htdocs/
 CMD ["make","run"]
