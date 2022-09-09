@@ -38,5 +38,3 @@ https://docs.github.com/en/actions/security-guides/encrypted-secrets
    1. EC2 --- Loadbalancer --- Description --- DNS Name
 
 6. Create another PR from dev to main, once merge it will trigger the Production deployment.
-
-
