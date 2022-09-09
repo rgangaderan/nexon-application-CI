@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="container">
-<h1>Show databases in MySQL server- working1</h1>
+<h1>Show databases in MySQL server-working1</h1>
 <?php
 
 getenv('MYSQL_DBHOST') ? $db_host=getenv('MYSQL_DBHOST') : $db_host="localhost";
@@ -28,7 +28,7 @@ if ($conn->connect_error)
 if (!($result=mysqli_query($conn,'SHOW DATABASES')))
     printf("Error: %s\n", mysqli_error($conn));
 
-echo "<h3>Databases-test</h3>";
+echo "<h3>Databases-ECS with ALB</h3>";
 
 while($row = mysqli_fetch_row( $result ))
     echo $row[0]."<br />";
