@@ -39,6 +39,6 @@ jobs:
             export docker_version=$(cat version.sh | cut -c 9-)
             echo $docker_version
             git clone git@github.com:rgangaderan/nexon-infra-and-application.git && cd nexon-infra-and-application/development/static-web-app-alb && sed '/^  docker_version /s/=.*$/= $docker_version/' terragrunt.hcl
-            terragrunt apply -var max_size=0 -var min_size=0 -var docker_version=$DOCKER_VERSION -auto-approve
+            terragrunt apply -var max_size=0 -var min_size=0 -auto-approve
             sleep 90
-            terragrunt apply -var max_size=$MAX -var min_size=$MIN -var docker_version=$DOCKER_VERSION -auto-approve
+            terragrunt apply -var max_size=$MAX -var min_size=$MIN -auto-approve
