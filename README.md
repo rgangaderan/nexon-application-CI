@@ -13,7 +13,8 @@ You can find the all information in the same repository under Settings --- Actio
 https://www.edwardthomson.com/blog/github_actions_26_self_hosted_runners.html
 
 2. Create Secrets
-    Unser Settings ---- Security ----- Secrets ----- Action ---- New repository secret
+
+Unser Settings ---- Security ----- Secrets ----- Action ---- New repository secret
 https://docs.github.com/en/actions/security-guides/encrypted-secrets
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/41107404/189351977-20afb1b0-8ef1-4427-b4db-20a97d94b738.png">
 
