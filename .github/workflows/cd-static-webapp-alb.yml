@@ -1,0 +1,42 @@
+name: Deploy-Static-WebApp
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:  
+      - dev
+
+#############################################################################################
+# Passing global environment variable, this can be use throughout the file 
+env:
+  REGION: us-east-1
+  PROFILE: nexon-dev
+  AUTOSCALINGNAME: nexon-development-wxiqw
+  MIN: 2
+  MAX: 2
+  TERRAFORM_TOKEN: ${{ secrets.TERRAFORM_TOKEN }}
+#############################################################################################
+
+jobs:
+###############################################################################################################################################################################
+# Update Autoscalling Group and launch instances once CI part is done, it will copy new artifacts and run the applications     
+###############################################################################################################################################################################
+
+  Static-WebApp-Deployment-ALB:
+    runs-on: self-hosted
+    name: Static WebApp Deployment ALB
+    environment:
+      name: Dev
+    defaults:
+      run:
+        shell: bash
+    steps: 
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        name: "Static-Web-App-Deployment"
+        run: |
+            git clone git@github.com:rgangaderan/nexon-infra-and-application.git && cd nexon-infra-and-application/development/static-web-app-alb && sed -i '/^  docker_version /s/=.*$/= "{{}}"/' terragrunt.hcl && sed -i s/{{}}/$(cat ../../../version.sh | cut -c 9-)/g terragrunt.hcl
+            terragrunt apply -var max_size=0 -var min_size=0 -auto-approve
+            sleep 90
+            terragrunt apply -var max_size=$MAX -var min_size=$MIN -auto-approve

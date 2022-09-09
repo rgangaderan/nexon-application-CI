@@ -49,7 +49,7 @@ jobs:
       - 
         name: "build"
         run: |
-            docker build -t nexon-marketing-static:$(cat version.sh | cut -c 9-) ./static-web-app-nexon-CI
+            docker build -t nexon-marketing-static:$(cat version.sh | cut -c 9-) ./static-web-app-alb-CI
     needs: [Docker-Login]
 
 # push the image

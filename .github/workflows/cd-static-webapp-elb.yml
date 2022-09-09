@@ -1,0 +1,53 @@
+name: Deploy-Static-WebApp-ELB
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:  
+      - dev
+
+#############################################################################################
+# Passing global environment variable, this can be use throughout the file 
+env:
+  REGION: us-east-1
+  PROFILE: nexon-dev
+  AUTOSCALINGNAME: nexon-development-wxiqw
+  MIN: 1
+  MAX: 1
+#############################################################################################
+
+jobs:
+###############################################################################################################################################################################
+# Update Autoscalling Group and launch instances once CI part is done, it will copy new artifacts and run the applications     
+###############################################################################################################################################################################
+
+  Static-WebApp-Deployment-ELB:
+    runs-on: self-hosted
+    name: Static WebApp Deployment ELB
+    environment:
+      name: Dev
+    defaults:
+      run:
+        shell: bash
+    steps: 
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        name: "Static-Web-App-Deployment"
+        run: |
+            aws autoscaling update-auto-scaling-group \
+              --auto-scaling-group-name $AUTOSCALINGNAME \
+              --min-size 0 \
+              --max-size 0 \
+              --profile $PROFILE \
+              --region $REGION
+            
+            sleep 100
+
+            aws autoscaling update-auto-scaling-group \
+              --auto-scaling-group-name $AUTOSCALINGNAME \
+              --min-size $MIN \
+              --max-size $MAX \
+              --profile $PROFILE \
+              --region $REGION
+          
