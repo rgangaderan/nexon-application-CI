@@ -4,4 +4,3 @@ WORKDIR script
 RUN apt update && apt install make -y
 COPY . . 
 COPY index.html /usr/local/apache2/htdocs/
-CMD ["make","run"]
