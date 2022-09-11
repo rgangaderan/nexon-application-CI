@@ -9,10 +9,10 @@ on:
 env:
   ECR_REGION: us-east-1
   ECR_PROFILE: nexon-dev
-  SERVICE: nexon-development-wrrhn
-  TASKDEFINITION: nexon-development-task-definition-wrrhn
-  COUNT: 0
-  CLUSTER: nexon-development-ecs-cluster-wrrhn
+  SERVICE: nexon-development-hebva
+  TASKDEFINITION: nexon-development-task-definition-fgdbk
+  COUNT: 2
+  CLUSTER: nexon-development-ecs-cluster-fgdbk
 #############################################################################################
 
 jobs:
