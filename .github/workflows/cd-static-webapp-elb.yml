@@ -10,9 +10,9 @@ on:
 env:
   REGION: us-east-1
   PROFILE: nexon-dev
-  AUTOSCALINGNAME: nexon-development-wxiqw
-  MIN: 0
-  MAX: 0
+  AUTOSCALINGNAME: nexon-development-vidjf
+  MIN: 1
+  MAX: 1
 #############################################################################################
 
 jobs:
