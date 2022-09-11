@@ -9,7 +9,7 @@ on:
 env:
   ECR_REGION: us-east-1
   ECR_PROFILE: nexon-dev
-  SERVICE: nexon-development-hebva
+  SERVICE: nexon-development-fgdbk
   TASKDEFINITION: nexon-development-task-definition-fgdbk
   COUNT: 2
   CLUSTER: nexon-development-ecs-cluster-fgdbk
